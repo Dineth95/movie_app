@@ -12,20 +12,20 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
 
   HomePageBloc({required this.getMovieDetails}) : super(HomePageInitial()) {
     on<GetTopRatedMoviesEvent>((event, emit) async {
-      var response = await getMovieDetails(
+      emit(HomePageLoading());
+      final response = await getMovieDetails(
           ParamsGetTopRatedMovieDetails(page: event.page.toString()));
 
-      response.fold((failure) {
+      response.fold((failure) async {
         if (failure is ServerFailure) {
-          return emit(const HomePageloadingFailed(message: 'server failure'));
+          emit(const HomePageloadingFailed(message: 'server failure'));
         } else if (failure is ConnectionFailure) {
-          return emit(
-              const HomePageloadingFailed(message: 'connection failure'));
+          emit(const HomePageloadingFailed(message: 'connection failure'));
         } else {
-          return emit(const HomePageloadingFailed(message: 'unknown error'));
+          emit(const HomePageloadingFailed(message: 'unknown error'));
         }
       }, (data) {
-        return emit(MovieDetailsLoaded(moviesList: data.results.toList()));
+        emit(MovieDetailsLoaded(moviesList: data.results.toList()));
       });
     });
 

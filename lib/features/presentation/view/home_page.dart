@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       body: BlocProvider(
         create: (context) =>
             HomePageBloc(getMovieDetails: sl<GetMovieDetails>()),
+        lazy: false,
         child: BlocBuilder<HomePageBloc, HomePageState>(
             builder: ((context, state) {
           if (state is MovieDetailsLoaded) {
@@ -38,9 +39,9 @@ class _HomePageState extends State<HomePage> {
                           index: state.moviesList.toList().indexOf(result)))
                       .toList()),
             );
+          } else {
+            return Container();
           }
-
-          return Container();
         })),
       ),
     );

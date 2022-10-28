@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/config.dart';
 import 'package:movie_app/features/data/models/top_rated_movie_response_model.dart';
@@ -24,6 +26,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
           'page': page
         });
 
-    return response.data;
+    return TopRatedMovieResponseModel.fromJson(jsonEncode(response.data));
   }
 }
