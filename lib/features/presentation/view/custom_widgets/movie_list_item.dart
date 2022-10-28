@@ -13,9 +13,10 @@ class MovieListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width - 50,
+      margin: const EdgeInsets.symmetric(horizontal: 13,vertical: 10),
       padding: const EdgeInsets.all(20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.network(
             Config.imagePath + (resultModel?.posterPath ?? ''),
@@ -60,6 +61,18 @@ class MovieListItem extends StatelessWidget {
                 ),
               ],
             ),
+          )
+        ],
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 1.0,
+            spreadRadius: 0.0,
+            offset: Offset(1.0, 1.0), // shadow direction: bottom right
           )
         ],
       ),

@@ -32,11 +32,12 @@ class _HomePageState extends State<HomePage> {
           if (state is MovieDetailsLoaded) {
             return SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                   children: state.moviesList
                       .toList()
                       .map((result) => MovieListItem(
                           resultModel: result,
-                          index: state.moviesList.toList().indexOf(result)))
+                          index: state.moviesList.toList().indexOf(result)+1))
                       .toList()),
             );
           } else {
