@@ -14,14 +14,18 @@ class MovieListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 13,vertical: 10),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.network(
-            Config.imagePath + (resultModel?.posterPath ?? ''),
-            width: 60,
-            height: 100,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              Config.imagePath + (resultModel?.posterPath ?? ''),
+              width: 120,
+              height: 180,
+              fit: BoxFit.fill,
+            ),
           ),
           const SizedBox(
             width: 10,
@@ -48,7 +52,7 @@ class MovieListItem extends StatelessWidget {
                 Text(
                   '${resultModel?.releaseDate ?? ''} (${resultModel?.originalLanguage}) - ${(resultModel?.adult ?? false) ? 'R' : 'All'}',
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.grey),
+                       color: Colors.grey),
                 ),
                 const SizedBox(
                   height: 7,
@@ -56,8 +60,9 @@ class MovieListItem extends StatelessWidget {
                 Text(
                   '(${resultModel?.overview})',
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.grey),
-                  maxLines: 3,
+                       color: Colors.grey),
+                       overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
                 ),
               ],
             ),
@@ -69,7 +74,7 @@ class MovieListItem extends StatelessWidget {
         color: Colors.white,
         boxShadow: const [
           BoxShadow(
-            color: Colors.black,
+            color: Colors.grey,
             blurRadius: 1.0,
             spreadRadius: 0.0,
             offset: Offset(1.0, 1.0), // shadow direction: bottom right
