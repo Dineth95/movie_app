@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/config.dart';
 import 'package:movie_app/features/data/models/result_model.dart';
@@ -13,19 +14,21 @@ class MovieListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 13,vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       padding: const EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              Config.imagePath + (resultModel?.posterPath ?? ''),
-              width: 120,
-              height: 180,
-              fit: BoxFit.fill,
-            ),
+            child: CachedNetworkImage(
+                imageUrl: Config.imagePath + (resultModel?.posterPath ?? ''),
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                width: 120,
+                height: 180,
+                fit: BoxFit.fill),
           ),
           const SizedBox(
             width: 10,
@@ -51,17 +54,15 @@ class MovieListItem extends StatelessWidget {
                 ),
                 Text(
                   '${resultModel?.releaseDate ?? ''} (${resultModel?.originalLanguage}) - ${(resultModel?.adult ?? false) ? 'R' : 'All'}',
-                  style: const TextStyle(
-                       color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(
                   height: 7,
                 ),
                 Text(
                   '(${resultModel?.overview})',
-                  style: const TextStyle(
-                       color: Colors.grey),
-                       overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey),
+                  overflow: TextOverflow.ellipsis,
                   maxLines: 4,
                 ),
               ],

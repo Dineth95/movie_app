@@ -14,6 +14,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   HomePageBloc({required this.getMovieDetails})
       : super(const HomePageInitial(
             moviesList: null, noMore: false, selectedIndex: 1, page: 1)) {
+    ///Initial Home page data
     on<GetTopRatedMoviesEvent>(
       (event, emit) => _mapHomepageToState(
           index: event.index,
@@ -28,6 +29,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       },
     );
 
+    /// Fetch next page movie details
     on<FetchNextTopRatedPage>(
         (event, emit) => _mapHomepageToState(
             loading: false,
@@ -57,21 +59,25 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     response.fold((failure) async {
       if (failure is ServerFailure) {
         emit(HomePageloadingFailed(
-            message: 'server failure',
+            message: 'Error Occured.Please try again later!',
             selectedIndex: index,
             noMore: state.noMore,
             page: state.page,
             moviesList: state.moviesList));
+
+        ///Internet connection failure
       } else if (failure is ConnectionFailure) {
         emit(HomePageloadingFailed(
-            message: 'connection failure',
+            message: 'Please Check your internet connection!',
             selectedIndex: index,
             noMore: state.noMore,
             page: state.page,
             moviesList: state.moviesList));
+
+        ///Other unknown failures(ex: serialization error)
       } else {
         emit(HomePageloadingFailed(
-            message: 'unknown error',
+            message: 'Unknown error!',
             selectedIndex: index,
             noMore: state.noMore,
             page: state.page,
@@ -80,18 +86,24 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     }, (data) {
       List<ResultModel>? results = (data.results?.toList() ?? []);
 
+      /// when pull to refresh started
       if (reset ?? false) {
         emit(MovieDetailsLoaded(
             moviesList: results,
             selectedIndex: index,
             noMore: state.noMore,
-            page: state.page));
+            page: page));
+
+        ///When there is no data for the current page
+        ///At the last page
       } else if (results.isEmpty) {
         emit(MovieDetailsLoaded(
             moviesList: state.moviesList,
             selectedIndex: index,
             noMore: true,
-            page: state.page));
+            page: page));
+
+        /// fetch next page data normaly
       } else {
         if (!loading) results = state.moviesList! + results;
 
@@ -99,7 +111,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             moviesList: results,
             selectedIndex: index,
             noMore: state.noMore,
-            page: state.page));
+            page: page));
       }
     });
   }

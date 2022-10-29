@@ -52,7 +52,14 @@ dependencies:
   #loading animation
   shimmer: ^2.0.0
 
+  # Add debounce time
   rxdart: ^0.27.5
+
+  #Add Cache options for dio
+  tf_dio_cache: ^1.0.1
+
+  #getting error widget for image
+  cached_network_image: ^3.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

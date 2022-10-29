@@ -47,12 +47,21 @@ class _HomePageState extends State<HomePage> {
               _isFetching = false;
             });
           }
+
+          if (state is HomePageloadingFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.redAccent,
+            ));
+          }
         }, builder: ((context, state) {
           if (state is HomePageLoading) {
             return SingleChildScrollView(
               child: Column(
                   children: List.generate(5, (index) => const LoadingWidget())),
             );
+
+            ///Data successfully retrived
           } else if (state is MovieDetailsLoaded) {
             return RefreshIndicator(
                 onRefresh: () {
@@ -81,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                         state.moviesList!.length,
                         (index) => MovieListItem(
                             resultModel: state.moviesList![index],
-                            index: index)),
+                            index: index + 1)),
                     _isFetching
                         ? const SizedBox(
                             height: 200,
