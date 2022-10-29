@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/config.dart';
 import 'package:movie_app/features/data/models/result_model.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class MovieListItem extends StatelessWidget {
   final ResultModel? resultModel;
@@ -19,17 +20,48 @@ class MovieListItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: CachedNetworkImage(
-                imageUrl: Config.imagePath + (resultModel?.posterPath ?? ''),
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                width: 120,
-                height: 180,
-                fit: BoxFit.fill),
-          ),
+          Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+            Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: CachedNetworkImage(
+                      imageUrl:
+                          Config.imagePath + (resultModel?.posterPath ?? ''),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      width: 120,
+                      height: 180,
+                      fit: BoxFit.fitHeight),
+                ),
+                const SizedBox(
+                  width: 120,
+                  height: 25,
+                )
+              ],
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: CircularPercentIndicator(
+                backgroundColor: Colors.white,
+                radius: 25.0,
+                lineWidth: 5.0,
+                percent: resultModel!.voteAverage! / 10,
+                center: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: const Color.fromARGB(255, 2, 41, 109),
+                  child: Text(
+                    ((resultModel?.voteAverage ?? 0) * 10).floor().toString() +
+                        "%",
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+                progressColor: Colors.green,
+              ),
+            )
+          ]),
           const SizedBox(
             width: 10,
           ),

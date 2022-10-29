@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/injection_container.dart' as di;
+import 'package:movie_app/core/injection_container.dart';
+import 'package:movie_app/core/network/bloc/network_info_bloc.dart';
+import 'package:movie_app/features/domain/usecase/get_movies_details.dart';
+import 'package:movie_app/features/presentation/bloc/home_page_bloc.dart';
 import 'package:movie_app/features/presentation/view/home_page.dart';
 
 void main() {
@@ -23,7 +28,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: const HomePage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<NetworkInfoBloc>(create: (context) => NetworkInfoBloc()),
+          BlocProvider(
+              create: (context) =>
+                  HomePageBloc(getMovieDetails: sl<GetMovieDetails>()))
+        ],
+        child: const HomePage(),
+      ),
     );
   }
 }

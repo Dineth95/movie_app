@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/core/injection_container.dart';
-import 'package:movie_app/features/domain/usecase/get_movies_details.dart';
+import 'package:movie_app/core/network/bloc/network_info_bloc.dart';
 import 'package:movie_app/features/presentation/bloc/home_page_bloc.dart';
 import 'package:movie_app/features/presentation/view/custom_widgets/loading_widget.dart';
 import 'package:movie_app/features/presentation/view/custom_widgets/movie_list_item_widget.dart';
@@ -36,10 +35,15 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: const Color.fromARGB(255, 2, 41, 109),
       ),
-      body: BlocProvider(
-        create: (context) =>
-            HomePageBloc(getMovieDetails: sl<GetMovieDetails>()),
-        lazy: false,
+      body: BlocListener<NetworkInfoBloc, NetworkInfoState>(
+        listener: (context, state) {
+          if (state is NetworkOfflineState) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Please check yout internet connection'),
+              backgroundColor: Colors.redAccent,
+            ));
+          }
+        },
         child: BlocConsumer<HomePageBloc, HomePageState>(
             listener: (context, state) {
           if (state is MovieDetailsLoaded) {

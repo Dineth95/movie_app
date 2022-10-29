@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:movie_app/core/config.dart';
 import 'package:movie_app/core/interceptors/dio_interceptor.dart';
 import 'package:movie_app/features/data/datasource/movie_remote_data_source.dart';
@@ -21,6 +22,9 @@ Future<void> init() async {
     dio.interceptors.add(DioCacheManager(CacheConfig(baseUrl: Config.baseUrl)).interceptor);
     return dio;
   });
+
+  //internet connection
+  sl.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
 
   // data Sources
   sl.registerLazySingleton<MovieRemoteDataSource>(
