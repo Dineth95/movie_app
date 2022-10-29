@@ -23,12 +23,7 @@ class _$TopRatedMovieResponseModelSerializer
   Iterable<Object?> serialize(
       Serializers serializers, TopRatedMovieResponseModel object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'results',
-      serializers.serialize(object.results,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(ResultModel)])),
-    ];
+    final result = <Object?>[];
     Object? value;
     value = object.page;
     if (value != null) {
@@ -41,6 +36,14 @@ class _$TopRatedMovieResponseModelSerializer
       result
         ..add('total_pages')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.results;
+    if (value != null) {
+      result
+        ..add('results')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(ResultModel)])));
     }
     value = object.totalResults;
     if (value != null) {
@@ -94,7 +97,7 @@ class _$TopRatedMovieResponseModel extends TopRatedMovieResponseModel {
   @override
   final int? totalPages;
   @override
-  final BuiltList<ResultModel> results;
+  final BuiltList<ResultModel>? results;
   @override
   final int? totalResults;
 
@@ -103,11 +106,8 @@ class _$TopRatedMovieResponseModel extends TopRatedMovieResponseModel {
       (new TopRatedMovieResponseModelBuilder()..update(updates))._build();
 
   _$TopRatedMovieResponseModel._(
-      {this.page, this.totalPages, required this.results, this.totalResults})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        results, r'TopRatedMovieResponseModel', 'results');
-  }
+      {this.page, this.totalPages, this.results, this.totalResults})
+      : super._();
 
   @override
   TopRatedMovieResponseModel rebuild(
@@ -175,7 +175,7 @@ class TopRatedMovieResponseModelBuilder
     if ($v != null) {
       _page = $v.page;
       _totalPages = $v.totalPages;
-      _results = $v.results.toBuilder();
+      _results = $v.results?.toBuilder();
       _totalResults = $v.totalResults;
       _$v = null;
     }
@@ -203,13 +203,13 @@ class TopRatedMovieResponseModelBuilder
           new _$TopRatedMovieResponseModel._(
               page: page,
               totalPages: totalPages,
-              results: results.build(),
+              results: _results?.build(),
               totalResults: totalResults);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'results';
-        results.build();
+        _results?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'TopRatedMovieResponseModel', _$failedField, e.toString());

@@ -6,13 +6,13 @@ part of 'result_model.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ResultModel> _$resultmodelSerializer = new _$ResultmodelSerializer();
+Serializer<ResultModel> _$resultModelSerializer = new _$ResultModelSerializer();
 
-class _$ResultmodelSerializer implements StructuredSerializer<ResultModel> {
+class _$ResultModelSerializer implements StructuredSerializer<ResultModel> {
   @override
-  final Iterable<Type> types = const [ResultModel, _$Resultmodel];
+  final Iterable<Type> types = const [ResultModel, _$ResultModel];
   @override
-  final String wireName = 'Resultmodel';
+  final String wireName = 'ResultModel';
 
   @override
   Iterable<Object?> serialize(Serializers serializers, ResultModel object,
@@ -102,7 +102,7 @@ class _$ResultmodelSerializer implements StructuredSerializer<ResultModel> {
   @override
   ResultModel deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ResultmodelBuilder();
+    final result = new ResultModelBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -161,7 +161,7 @@ class _$ResultmodelSerializer implements StructuredSerializer<ResultModel> {
   }
 }
 
-class _$Resultmodel extends ResultModel {
+class _$ResultModel extends ResultModel {
   @override
   final bool? adult;
   @override
@@ -185,10 +185,10 @@ class _$Resultmodel extends ResultModel {
   @override
   final double? voteCount;
 
-  factory _$Resultmodel([void Function(ResultmodelBuilder)? updates]) =>
-      (new ResultmodelBuilder()..update(updates))._build();
+  factory _$ResultModel([void Function(ResultModelBuilder)? updates]) =>
+      (new ResultModelBuilder()..update(updates))._build();
 
-  _$Resultmodel._(
+  _$ResultModel._(
       {this.adult,
       this.backdropPath,
       this.popularity,
@@ -203,11 +203,11 @@ class _$Resultmodel extends ResultModel {
       : super._();
 
   @override
-  ResultModel rebuild(void Function(ResultmodelBuilder) updates) =>
+  ResultModel rebuild(void Function(ResultModelBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ResultmodelBuilder toBuilder() => new ResultmodelBuilder()..replace(this);
+  ResultModelBuilder toBuilder() => new ResultModelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -252,7 +252,7 @@ class _$Resultmodel extends ResultModel {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'Resultmodel')
+    return (newBuiltValueToStringHelper(r'ResultModel')
           ..add('adult', adult)
           ..add('backdropPath', backdropPath)
           ..add('popularity', popularity)
@@ -268,8 +268,8 @@ class _$Resultmodel extends ResultModel {
   }
 }
 
-class ResultmodelBuilder implements Builder<ResultModel, ResultmodelBuilder> {
-  _$Resultmodel? _$v;
+class ResultModelBuilder implements Builder<ResultModel, ResultModelBuilder> {
+  _$ResultModel? _$v;
 
   bool? _adult;
   bool? get adult => _$this._adult;
@@ -317,9 +317,9 @@ class ResultmodelBuilder implements Builder<ResultModel, ResultmodelBuilder> {
   double? get voteCount => _$this._voteCount;
   set voteCount(double? voteCount) => _$this._voteCount = voteCount;
 
-  ResultmodelBuilder();
+  ResultModelBuilder();
 
-  ResultmodelBuilder get _$this {
+  ResultModelBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _adult = $v.adult;
@@ -341,20 +341,20 @@ class ResultmodelBuilder implements Builder<ResultModel, ResultmodelBuilder> {
   @override
   void replace(ResultModel other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Resultmodel;
+    _$v = other as _$ResultModel;
   }
 
   @override
-  void update(void Function(ResultmodelBuilder)? updates) {
+  void update(void Function(ResultModelBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   ResultModel build() => _build();
 
-  _$Resultmodel _build() {
+  _$ResultModel _build() {
     final _$result = _$v ??
-        new _$Resultmodel._(
+        new _$ResultModel._(
             adult: adult,
             backdropPath: backdropPath,
             popularity: popularity,

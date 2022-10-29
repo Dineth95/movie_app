@@ -15,7 +15,7 @@ abstract class TopRatedMovieResponseModel implements Built<TopRatedMovieResponse
   @BuiltValueField(wireName: 'total_pages')
   int? get totalPages;
 
-  BuiltList<ResultModel> get results;
+  BuiltList<ResultModel>? get results;
 
   @BuiltValueField(wireName: 'total_results')
   int? get totalResults;

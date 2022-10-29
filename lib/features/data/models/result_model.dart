@@ -6,7 +6,7 @@ import 'package:movie_app/core/serializers/serializers.dart';
 
 part 'result_model.g.dart';
 
-abstract class ResultModel implements Built<ResultModel, ResultmodelBuilder> {
+abstract class ResultModel implements Built<ResultModel, ResultModelBuilder> {
   // Fields
   bool? get adult;
 
@@ -39,8 +39,8 @@ abstract class ResultModel implements Built<ResultModel, ResultmodelBuilder> {
 
   ResultModel._();
 
-  factory ResultModel([void Function(ResultmodelBuilder) updates]) =
-      _$Resultmodel;
+  factory ResultModel([void Function(ResultModelBuilder) updates]) =
+      _$ResultModel;
 
   String toJson() {
     return json.encode(serializers.serializeWith(ResultModel.serializer, this));
@@ -51,5 +51,5 @@ abstract class ResultModel implements Built<ResultModel, ResultmodelBuilder> {
         ResultModel.serializer, json.decode(jsonString))!;
   }
 
-  static Serializer<ResultModel> get serializer => _$resultmodelSerializer;
+  static Serializer<ResultModel> get serializer => _$resultModelSerializer;
 }
