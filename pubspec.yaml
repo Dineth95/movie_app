@@ -75,6 +75,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  #mock network requests
+  mockito: ^5.3.2
+  http_mock_adapter: ^0.3.3
+
   # Model generation and serialization
   build_runner: ^2.1.5
   built_value_generator: ^8.1.3
