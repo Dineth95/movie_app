@@ -1,5 +1,5 @@
 class Config{
-  static String apiKey='9618b5cf6ae9661f92fff553c697bed4';
+  static String apiKey='Paste your API Key Here';
 
   static String baseUrl='https://api.themoviedb.org/3/';
 
