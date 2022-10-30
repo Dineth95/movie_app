@@ -14,17 +14,5 @@ class NetworkInfoBloc extends Bloc<NetworkInfoEvent, NetworkInfoState> {
     on<NetworkOnline>((event, emit) => emit(NetworkOnlineState()));
 
     on<NetworkOffline>((event, emit) => emit(NetworkOfflineState()));
-
-    ///subscribe the network status
-    internetConnectionChecker.onStatusChange.listen((status) {
-      switch (status) {
-        case InternetConnectionStatus.connected:
-          add(NetworkOnline());
-          break;
-        case InternetConnectionStatus.disconnected:
-          add(NetworkOffline());
-          break;
-      }
-    });
   }
 }

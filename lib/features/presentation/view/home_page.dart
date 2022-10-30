@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:movie_app/core/network/bloc/network_info_bloc.dart';
 import 'package:movie_app/features/presentation/bloc/home_page_bloc.dart';
 import 'package:movie_app/features/presentation/view/custom_widgets/loading_widget.dart';
@@ -21,6 +24,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _controller = ScrollController();
+
+    ///subscribe the network status
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      switch (status) {
+        case InternetConnectionStatus.connected:
+          context.read<NetworkInfoBloc>().add(NetworkOnline());
+
+          break;
+        case InternetConnectionStatus.disconnected:
+          context.read<NetworkInfoBloc>().add(NetworkOffline());
+
+          break;
+      }
+    });
+
     super.initState();
   }
 
@@ -59,14 +77,7 @@ class _HomePageState extends State<HomePage> {
             ));
           }
         }, builder: ((context, state) {
-          if (state is HomePageLoading) {
-            return SingleChildScrollView(
-              child: Column(
-                  children: List.generate(5, (index) => const LoadingWidget())),
-            );
-
-            ///Data successfully retrived
-          } else if (state is MovieDetailsLoaded) {
+          if (state is MovieDetailsLoaded) {
             return RefreshIndicator(
                 onRefresh: () {
                   context
@@ -106,7 +117,10 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                 ));
           } else {
-            return Container();
+            return SingleChildScrollView(
+              child: Column(
+                  children: List.generate(5, (index) => const LoadingWidget())),
+            );
           }
         })),
       ),
