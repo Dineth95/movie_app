@@ -20,6 +20,17 @@ After we can generate models using this
 flutter2 pub run build_runner build --delete-conflicting-outputs
 ```
 
+# Architecture
+
+![Architecture]()
+
+Used Clean Architecture and created some unit tests
+1. pros
+Increase code readablity, scalability and maintainablity 
+
+2.Cons
+Time Consuming with TDD
+
 ## Feature
 - [X] List Top rated movies.
 - [X] easy scrolling.
