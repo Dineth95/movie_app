@@ -25,10 +25,10 @@ flutter2 pub run build_runner build --delete-conflicting-outputs
 ![Architecture]()
 
 Used Clean Architecture and created some unit tests
-1. pros
+1. Pros<br />
 Increase code readablity, scalability and maintainablity 
 
-2.Cons
+2. Cons<br />
 Time Consuming with TDD
 
 ## Feature
