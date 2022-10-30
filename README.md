@@ -22,7 +22,7 @@ flutter2 pub run build_runner build --delete-conflicting-outputs
 
 # Architecture
 
-![Architecture]()
+![Architecture](https://github.com/Dineth95/movie_app/blob/main/images/clean2.png)
 
 Used Clean Architecture and created some unit tests
 1. Pros<br />
